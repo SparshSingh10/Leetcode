@@ -1,53 +1,61 @@
 class Solution {
-    public int maximalRectangle(char[][] matrix) {
-        if(matrix.length==0) 
-            return 0;
-        int[] heights = new int[matrix[0].length];
-        int maxArea=-1;
-        for(int i=0; i<matrix.length; i++){
-            for(int j=0; j<matrix[0].length; j++){
-                if(matrix[i][j]=='0'){
-                    heights[j] = 0;
-                } else {
-                    heights[j] ++;
-                }
-            }            
-            int area = Area(heights);
-            maxArea = Math.max(maxArea, area);
+    public int maximalRectangle(char[][] a) {
+        int[] currow = new int[a[0].length];
+        int maxans=-1;
+            for(int i=0;i<a.length;i++){
+                for(int j=0;j<a[0].length;j++){
+                    if(a[i][j]=='1')
+                        currow[j]+=1;
+                    else
+                        currow[j]=0;
+                    }
+                
+                int curans=largestRectangleArea(currow);
+                maxans=Math.max(maxans,curans);
+            }
+            return maxans;
         }
-        return maxArea;
-    }  
-    public static int Area(int[] arr) {
-
-		int maxArea = 0;
-		Stack<Integer> st = new Stack<>();
-		for (int i = 0; i < arr.length; i++) {
-			while (!st.isEmpty() && arr[i] < arr[st.peek()]) {
-				int r = i;
-				int h = arr[st.pop()];
-				if (st.isEmpty()) {
-					maxArea = Math.max(maxArea, (r * h));
-				} else {
-					int l = st.peek();
-					maxArea = Math.max(maxArea, ((r - l - 1) * h));
-				}
-
-			}
-			st.push(i);
-		}
-		int r = arr.length;
-		while (!st.isEmpty()) {
-
-			int h = arr[st.pop()];
-			if (st.isEmpty()) {
-				maxArea = Math.max(maxArea, (r * h));
-			} else {
-				int l = st.peek();
-				maxArea = Math.max(maxArea, ((r - l - 1) * h));
-			}
-
-		}
-		return maxArea;
-
-	}
+        
+     public int largestRectangleArea(int[] heights) {
+        int ans=Integer.MIN_VALUE;
+        int leftindex[]=ps(heights);
+        int rightindex[]=ns(heights);
+        for(int i=0;i<heights.length;i++){
+            int area=(rightindex[i]-leftindex[i]-1)*heights[i];
+            ans=Math.max(ans,area);
+        }
+        return ans;
+    }
+    public int[] ns(int heights[]){
+        Stack<Integer> st=new Stack<>();
+        int rightindex[]=new int[heights.length];
+        for(int i=heights.length-1;i>=0;i--){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                st.pop();
+            if(st.isEmpty()){
+                rightindex[i]=heights.length;
+            }
+            else{
+                rightindex[i]=st.peek();
+            }
+            st.push(i);
+        }
+        return rightindex;
+    }
+     public int[] ps(int heights[]){
+        Stack<Integer> st=new Stack<>();
+        int[] leftindex=new int[heights.length];
+        for(int i=0;i<heights.length;i++){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                st.pop();
+            if(st.isEmpty()){
+                leftindex[i]=-1;
+            }
+            else{
+                leftindex[i]=st.peek();
+            }
+            st.push(i);
+        }
+        return leftindex;
+    }
 }
