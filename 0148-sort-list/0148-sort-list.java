@@ -9,51 +9,48 @@
  * }
  */
 public class Solution {
+    ListNode mid(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast.next!= null && fast.next.next != null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+    ListNode mergeSortedList(ListNode p1,ListNode p2){
+        if(p1 == null || p2 == null){
+            return(p1==null)?p2:p1;
+        }
+        ListNode ans=new ListNode(0);
+        ListNode curr=ans;
+        while(p1!=null && p2!= null){
+            if(p1.val<p2.val){
+                curr.next=p1;
+                p1=p1.next;
+            }
+            else{
+                curr.next=p2;
+                p2=p2.next;
+            }
+            curr=curr.next;
+        }
+        if(p1!=null || p2!=null){
+            curr.next=(p1!=null)?p1:p2;
+        }
+        return ans.next;
+    }
   
   public ListNode sortList(ListNode head) {
-    if (head == null || head.next == null)
-      return head;
-        
-    // step 1. cut the list to two halves
-    ListNode prev = null, slow = head, fast = head;
-    
-    while (fast != null && fast.next != null) {
-      prev = slow;
-      slow = slow.next;
-      fast = fast.next.next;
-    }
-    
-    prev.next = null;
-    
-    // step 2. sort each half
-    ListNode l1 = sortList(head);
-    ListNode l2 = sortList(slow);
-    
-    // step 3. merge l1 and l2
-    return merge(l1, l2);
-  }
+      if(head==null || head.next==null)
+          return head;
+      ListNode mid=mid(head);
+      ListNode newhead=mid.next;
+      mid.next=null;
+      ListNode left=sortList(head);
+      ListNode right=sortList(newhead);
+      return mergeSortedList(left,right);
   
-  ListNode merge(ListNode l1, ListNode l2) {
-    ListNode l = new ListNode(0), p = l;
-    
-    while (l1 != null && l2 != null) {
-      if (l1.val < l2.val) {
-        p.next = l1;
-        l1 = l1.next;
-      } else {
-        p.next = l2;
-        l2 = l2.next;
-      }
-      p = p.next;
-    }
-    
-    if (l1 != null)
-      p.next = l1;
-    
-    if (l2 != null)
-      p.next = l2;
-    
-    return l.next;
-  }
 
+}
 }
