@@ -9,7 +9,32 @@
  * }
  */
 public class Solution {
-    ListNode mid(ListNode head){
+   
+   
+  public ListNode sortList(ListNode head) {
+      // base condition
+      if(head==null || head.next==null)
+          return head;
+      
+      ListNode mid=mid(head);
+      // first part
+      ListNode newhead=mid.next;
+      // second part
+      mid.next=null;
+      ListNode left=sortList(head);
+   
+      ListNode right=sortList(newhead);
+      
+      return mergeSortedList(left,right);
+  }
+    
+    
+    
+    
+    
+    
+     ListNode mid(ListNode head){
+        // returns mid
         ListNode slow=head;
         ListNode fast=head;
         while(fast.next!= null && fast.next.next != null){
@@ -18,10 +43,13 @@ public class Solution {
         }
         return slow;
     }
-    ListNode mergeSortedList(ListNode p1,ListNode p2){
+     ListNode mergeSortedList(ListNode p1,ListNode p2){
+        // if ony one given for sort
         if(p1 == null || p2 == null){
             return(p1==null)?p2:p1;
         }
+        
+        // empty linklist node to store
         ListNode ans=new ListNode(0);
         ListNode curr=ans;
         while(p1!=null && p2!= null){
@@ -41,16 +69,4 @@ public class Solution {
         return ans.next;
     }
   
-  public ListNode sortList(ListNode head) {
-      if(head==null || head.next==null)
-          return head;
-      ListNode mid=mid(head);
-      ListNode newhead=mid.next;
-      mid.next=null;
-      ListNode left=sortList(head);
-      ListNode right=sortList(newhead);
-      return mergeSortedList(left,right);
-  
-
-}
 }
