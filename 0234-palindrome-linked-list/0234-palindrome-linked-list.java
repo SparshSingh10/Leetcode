@@ -15,7 +15,7 @@ class Solution {
         // mid se aur uske aage ka reverse karo
         ListNode headSecond=reverseList(mid);
         // backup
-        ListNode reversehead=headSecond;
+        // ListNode reversehead=headSecond;
             // compare both the halfs
         while(head!=null && headSecond!=null){
             if(head.val!=headSecond.val)
