@@ -18,9 +18,9 @@ class Solution {
         
         List<List<Integer>>output=new ArrayList<>();
         if(root==null) return output;
-    Queue<TreeNode> q=new LinkedList<>();
-    q.add(root);
-    while(q.size()>0){
+        Queue<TreeNode> q=new LinkedList<>();
+        q.add(root);
+        while(q.size()>0){
         List<Integer>lis=new ArrayList<>();
         int size = q.size();
         for(int i=0;i<size;i++){
