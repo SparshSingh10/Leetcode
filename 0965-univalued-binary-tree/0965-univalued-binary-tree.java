@@ -17,17 +17,17 @@ class Solution
 {
     public boolean isUnivalTree(TreeNode root) 
     {
-        if(root == null) 
+        if(root == null)//base case for null graph 
             return false;
-        return check(root,root.val);
+        return check(root,root.val);//helper method to calculate recursively 
     }
     public boolean check(TreeNode root, int val)
     {
-        if(root == null) 
+        if(root == null)//base case 
             return true;
         else if(root.val != val)//if by chance false is returned the tree is not Univalued 
             return false;
-        else
+
             return check(root.left, val) && check(root.right, val);//if both left and right subtree has the the same valued node it returns true else false  
     }
-}//Do Upvote, it helps a 
+}//Do Upvote, it helps a lot.
