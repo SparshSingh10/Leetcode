@@ -25,7 +25,7 @@ class Solution
     {
         if(root == null)//base case 
             return true;
-        else if(root.val != val)//if by chance false is returned the tree is not Univalued 
+        if(root.val != val)//if by chance false is returned the tree is not Univalued 
             return false;
 
             return check(root.left, val) && check(root.right, val);//if both left and right subtree has the the same valued node it returns true else false  
