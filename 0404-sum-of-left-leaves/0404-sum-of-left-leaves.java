@@ -14,19 +14,20 @@
  * }
  */
 class Solution {
-    int leftLeafSum = 0;
+    int sum = 0;
     public int sumOfLeftLeaves(TreeNode root) {
         helper(root);
-        return leftLeafSum;
+        return sum;
     }
     private void helper(TreeNode root){
         if(root ==null) return;
-        if(isLeafNode(root.left)) leftLeafSum += root.left.val;
+        if(leaf(root.left)==true)
+            sum += root.left.val;
         helper(root.left);
         helper(root.right);
     }
     
-    private boolean isLeafNode(TreeNode root){
+    private boolean leaf(TreeNode root){
         if(root == null) return false;
         if(root.left == null && root.right == null)
             return true;
