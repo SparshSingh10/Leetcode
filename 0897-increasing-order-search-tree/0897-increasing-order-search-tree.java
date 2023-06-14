@@ -14,6 +14,8 @@
  * }
  */
 class Solution {
+    TreeNode dummy = new TreeNode(0);
+    TreeNode tmp = dummy;
     TreeNode inorder(TreeNode root, TreeNode tmp) {
         if (root == null)
             return tmp;
@@ -26,8 +28,6 @@ class Solution {
     }
     
     TreeNode increasingBST(TreeNode root) {
-        TreeNode dummy = new TreeNode(0);
-        TreeNode tmp = dummy;
         inorder(root, tmp);
         return dummy.right;
     }
