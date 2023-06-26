@@ -26,8 +26,7 @@ class Solution {
         visited[s] = true;
         dfsVisited[s] = true;
 
-        int[] data = graph[s];
-        for (int x : data) {
+        for (int x : graph[s]) {
             if (!visited[x]) {
                 if (dfs(x, visited, dfsVisited, graph, presentCycle)) {
                     presentCycle[s] = true;
