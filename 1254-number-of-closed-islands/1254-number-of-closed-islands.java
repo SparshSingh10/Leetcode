@@ -1,12 +1,8 @@
 class Solution {
-    public boolean isValid(int i, int j, int n, int m, int[][] grid) {
-        if (i >= 0 && i < n && j >= 0 && j < m && grid[i][j] == 0) {
-            return true;
-        }
-        return false;
-    }
-
     public void dfs(int i, int j, int n, int m, int[][] grid) {
+        if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] != 0) {
+            return;
+        }
         grid[i][j] = 1;
 
         int[] ax = {1, -1, 0, 0};
@@ -16,9 +12,7 @@ class Solution {
             int nx = i + ax[k];
             int ny = j + ay[k];
 
-            if (isValid(nx, ny, n, m, grid)) {
-                dfs(nx, ny, n, m, grid);
-            }
+            dfs(nx, ny, n, m, grid);
         }
     }
 
@@ -28,13 +22,13 @@ class Solution {
 
         // Boundary DFS
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (i * j == 0 || i == n - 1 || j == m - 1) {
-                    if (grid[i][j] == 0) {
-                        dfs(i, j, n, m, grid);
-                    }
-                }
-            }
+            dfs(i, 0, n, m, grid);
+            dfs(i, m - 1, n, m, grid);
+        }
+
+        for (int j = 0; j < m; j++) {
+            dfs(0, j, n, m, grid);
+            dfs(n - 1, j, n, m, grid);
         }
 
         // Call DFS in the whole grid
