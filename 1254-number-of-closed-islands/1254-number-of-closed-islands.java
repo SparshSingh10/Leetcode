@@ -5,15 +5,11 @@ class Solution {
         }
         grid[i][j] = 1;
 
-        int[] ax = {1, -1, 0, 0};
-        int[] ay = {0, 0, 1, -1};
-
-        for (int k = 0; k < 4; k++) {
-            int nx = i + ax[k];
-            int ny = j + ay[k];
-
-            dfs(nx, ny, n, m, grid);
-        }
+       
+        dfs(i + 1, j, n, m, grid); // Down
+        dfs(i - 1, j, n, m, grid); // Up
+        dfs(i, j + 1, n, m, grid); // Right
+        dfs(i, j - 1, n, m, grid);
     }
 
     public int closedIsland(int[][] grid) {
