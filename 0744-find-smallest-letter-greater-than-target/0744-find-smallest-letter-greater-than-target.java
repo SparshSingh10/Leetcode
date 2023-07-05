@@ -17,6 +17,6 @@ class Solution {
         if (start >= arr.length)
             return arr[0];
         
-        return arr[start];  // Return the next greatest letter
+        return arr[end+1];  // Return the next greatest letter
     }
 }
