@@ -33,7 +33,7 @@ public ArrayList<Integer> generatePrimes(int left, int right) {
         }
     }
 
-    for (int i = Math.max(2, left); i <= right; i++) {
+    for (int i =left; i <= right; i++) {
         if (isPrime[i]) {
             primesList.add(i);
         }
