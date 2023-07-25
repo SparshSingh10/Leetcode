@@ -1,44 +1,45 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int ans=Integer.MIN_VALUE;
-        int leftindex[]=ps(heights);
-        int rightindex[]=ns(heights);
-        for(int i=0;i<heights.length;i++){
-            int area=(rightindex[i]-leftindex[i]-1)*heights[i];
-            ans=Math.max(ans,area);
-        }
-        return ans;
+       
+        return Area(heights);
     }
-    public int[] ns(int heights[]){
-        Stack<Integer> st=new Stack<>();
-        int rightindex[]=new int[heights.length];
-        for(int i=heights.length-1;i>=0;i--){
-            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
-                st.pop();
-            if(st.isEmpty()){
-                rightindex[i]=heights.length;
-            }
-            else{
-                rightindex[i]=st.peek();
-            }
-            st.push(i);
-        }
-        return rightindex;
-    }
-     public int[] ps(int heights[]){
-        Stack<Integer> st=new Stack<>();
-        int[] leftindex=new int[heights.length];
-        for(int i=0;i<heights.length;i++){
-            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
-                st.pop();
-            if(st.isEmpty()){
-                leftindex[i]=-1;
-            }
-            else{
-                leftindex[i]=st.peek();
-            }
-            st.push(i);
-        }
-        return leftindex;
-    }
+  public static int Area(int[] arr) {
+
+		Stack<Integer> st = new Stack<>();
+		int ans = 0;
+		for (int i = 0; i < arr.length; i++) {
+
+			while (!st.isEmpty() && arr[i] < arr[st.peek()]) {
+
+				int r = i;
+				int h = arr[st.pop()];
+				if (st.isEmpty()) {
+					ans = Math.max(ans, h * r);
+
+				} else {
+					int l = st.peek();
+					ans = Math.max(ans, h * (r - l - 1));
+				}
+
+			}
+			st.push(i);
+
+		}
+
+		int r = arr.length;
+		while (!st.isEmpty()) {
+
+			int h = arr[st.pop()];
+			if (st.isEmpty()) {
+				ans = Math.max(ans, h * r);
+
+			} else {
+				int l = st.peek();
+				ans = Math.max(ans, h * (r - l - 1));
+			}
+		}
+
+		return ans;
+
+	}
 }
