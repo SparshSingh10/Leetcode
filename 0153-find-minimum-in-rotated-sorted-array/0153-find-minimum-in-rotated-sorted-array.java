@@ -1,24 +1,17 @@
-class Solution 
-{
-    public int findMin(int[] nums) 
-    {
-         int res = nums[0];
-         int left = 0, right = nums.length-1;
-        while(left<=right)
-        {
-            if(nums[left]<nums[right]){
-                res = Math.min(res, nums[left]);
-                break;
-            }
-            int mid = (left+right)/2;
-            res = Math.min(res, nums[mid]);
-            if(nums[mid]>=nums[left]){
-                left = mid+1;
-            }
-            else{
-                right = mid-1;
+class Solution {
+    public int findMin(int[] nums) {
+        int start = 0;
+        int end = nums.length-1;
+        while(start<=end){
+            int mid = (start + end) / 2;
+            if(nums[mid]<nums[end]){
+                end = mid;
+            }else if(nums[mid]>nums[end]){
+                start = mid + 1;
+            }else{
+                end--;
             }
         }
-        return res;
+        return nums[start];
     }
 }
