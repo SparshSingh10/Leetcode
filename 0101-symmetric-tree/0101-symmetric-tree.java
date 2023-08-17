@@ -19,16 +19,17 @@ class Solution {
             return true;
         else
             return helper(root.left,root.right);
-    }
-   
-     public boolean helper(TreeNode p,TreeNode q){
-
-    if(p==null && q==null)
+    } 
+     public boolean helper(TreeNode root1,TreeNode root2)
+     {
+    if(root1==null && root2==null)
         return true;
-    if(p==null ||q==null)
+    if(root1==null ||root2==null)
         return false;
-         if(p.val==q.val)
-        return (helper(p.left,q.right) && helper(p.right,q.left));
-    return false;
+    if(root1.val!=root2.val)
+        return false;
+    boolean left= helper(root1.left,root2.right);
+    boolean right= helper(root1.right,root2.left);
+    return left && right;
      }
 }
